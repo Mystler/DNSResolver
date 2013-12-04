@@ -1,6 +1,7 @@
 #ifndef _DNS_h_
 #define _DNS_h_
 
+#include <cstdlib>
 #include <cstdint>
 
 #define TYPE_A 0x0001

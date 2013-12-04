@@ -6,6 +6,8 @@
 #   include <winsock2.h>
 #   define close(x) closesocket(x)
 #else
+#   include <unistd.h>
+#   include <arpa/inet.h>
 #   include <sys/socket.h>
 #endif
 
@@ -16,7 +18,7 @@
 int main(int argc, const char* argv[])
 {
     if (argc != 2) {
-        printf("Usage: DNSResolver <hostname>");
+        printf("Usage: DNSResolver <hostname>\n");
         return 1;
     }
 
@@ -36,7 +38,7 @@ int main(int argc, const char* argv[])
     ns_addr.sin_port = htons(PORT);
     ns_addr.sin_addr.s_addr = inet_addr(NAMESERVER);
     if (connect(sock, (const sockaddr*)&ns_addr, sizeof(ns_addr)) != 0) {
-        printf("Connection error!");
+        printf("Connection error!\n");
         return 2;
     }
 
@@ -60,7 +62,7 @@ int main(int argc, const char* argv[])
 
     // Stop stopwatch
     uint32_t ms = static_cast<uint32_t>((clock() - time_start) * 1000.f / CLOCKS_PER_SEC);
-    printf("Time: %ums", ms);
+    printf("Time: %ums\n", ms);
 
 #ifdef BUILD_WIN32
     // Even moar haxxes
