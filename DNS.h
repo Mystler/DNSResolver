@@ -44,12 +44,12 @@ public:
     /** Write the packet to a network buffer.
      *  This will handle BE conversion.
      */
-    void WriteToNetBuffer(char* buf, size_t &len);
+    void WriteQuestion(char* buf, size_t &len);
 
     /** Read a DNS (Response) packet from a raw network buffer.
      *  This will handle BE conversion.
      */
-    void ReadFromNetBuffer(char* buf);
+    void ReadAnswer(char* buf);
 
 private:
     DNSHeader* fHeader;

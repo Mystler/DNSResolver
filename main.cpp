@@ -47,7 +47,7 @@ int main(int argc, const char* argv[])
     char buf[MAX_PACKET_LENGTH];
 
     DNSPacket dns(argv[1]);
-    dns.WriteToNetBuffer(buf, length);
+    dns.WriteQuestion(buf, length);
 
     // Send that stuff to the NS
     send(sock, buf, length, 0);
@@ -55,7 +55,7 @@ int main(int argc, const char* argv[])
     recv(sock, buf, MAX_PACKET_LENGTH, 0);
 
     // Read what we got
-    dns.ReadFromNetBuffer(buf);
+    dns.ReadAnswer(buf);
 
     // Close our socket
     close(sock);

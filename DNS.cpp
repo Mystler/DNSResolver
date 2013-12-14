@@ -48,7 +48,7 @@ DNSPacket::~DNSPacket()
     delete fQuestion;
 }
 
-void DNSPacket::WriteToNetBuffer(char* buf, size_t &len)
+void DNSPacket::WriteQuestion(char* buf, size_t &len)
 {
     len = 0;
     DNSHeader* bufHeader = (DNSHeader*)buf;
@@ -69,7 +69,7 @@ void DNSPacket::WriteToNetBuffer(char* buf, size_t &len)
     len += sizeof(DNSQuestionInfo);
 }
 
-void DNSPacket::ReadFromNetBuffer(char *buf)
+void DNSPacket::ReadAnswer(char *buf)
 {
     //TODO
 }
