@@ -12,9 +12,11 @@ endif()
 
 set(DNS_HEADERS
     DNS.h
+    Stream.h
 )
 set(DNS_SOURCES
     DNS.cpp
+    Stream.cpp
     main.cpp
 )
 

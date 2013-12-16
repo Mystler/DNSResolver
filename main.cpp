@@ -44,18 +44,28 @@ int main(int argc, const char* argv[])
 
     // Create our buffer
     size_t length = 0;
-    char buf[MAX_PACKET_LENGTH];
+    uint8_t buf[MAX_PACKET_LENGTH];
 
     DNSPacket dns(argv[1]);
     dns.WriteQuestion(buf, length);
 
     // Send that stuff to the NS
-    send(sock, buf, length, 0);
+    send(sock, (const char*)buf, length, 0);
     // Wait for the answer and overwrite our buffer
-    recv(sock, buf, MAX_PACKET_LENGTH, 0);
+    recv(sock, (char*)buf, MAX_PACKET_LENGTH, 0);
 
     // Read what we got
     dns.ReadAnswer(buf);
+
+    // Hooray, now let's print out our answers
+    const auto& answers = dns.GetAnswers();
+    for (size_t i = 0; i < answers.size(); i++) {
+        printf("%u - %s: %hhu.%hhu.%hhu.%hhu, TTL: %us\n", i + 1, answers[i]->host,
+               answers[i]->addr[0], answers[i]->addr[1], answers[i]->addr[2], answers[i]->addr[3],
+               answers[i]->ttl);
+    }
+    if (!answers.size())
+        printf("Could not resolve host!\n");
 
     // Close our socket
     close(sock);
