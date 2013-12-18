@@ -1,6 +1,6 @@
 #include "DNS.h"
 #include <cstdio>
-#include <ctime>
+#include <chrono>
 
 #ifdef BUILD_WIN32
 #   include <winsock2.h>
@@ -29,7 +29,7 @@ int main(int argc, const char* argv[])
 #endif
 
     // Start stopwatch
-    clock_t time_start = clock();
+    auto time_start = std::chrono::high_resolution_clock::now();
 
     // Create our socket and connect to the NS
     auto sock = socket(AF_INET, SOCK_DGRAM, 0);
@@ -71,7 +71,8 @@ int main(int argc, const char* argv[])
     close(sock);
 
     // Stop stopwatch
-    uint32_t ms = static_cast<uint32_t>((clock() - time_start) * 1000.f / CLOCKS_PER_SEC);
+    auto time_end = std::chrono::high_resolution_clock::now();
+    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(time_end - time_start);
     printf("Time: %ums\n", ms);
 
 #ifdef BUILD_WIN32
