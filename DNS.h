@@ -74,7 +74,7 @@ public:
     void ReadAnswer(uint8_t* buf);
 
     /** Returns the vector reference of our DNS Answer Records */
-    std::vector<std::unique_ptr<DNSAnswer>>& GetAnswers() { return fAnswers; }
+    const std::vector<std::unique_ptr<DNSAnswer>>& GetAnswers() { return fAnswers; }
 
 private:
     DNSHeader* fHeader;

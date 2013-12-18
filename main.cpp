@@ -59,7 +59,7 @@ int main(int argc, const char* argv[])
 
     // Hooray, now let's print out our answers
     const auto& answers = dns.GetAnswers();
-    for (size_t i = 0; i < answers.size(); i++) {
+    for (uint32_t i = 0; i < answers.size(); i++) {
         printf("%u - %s: %hhu.%hhu.%hhu.%hhu, TTL: %us\n", i + 1, answers[i]->host,
                answers[i]->addr[0], answers[i]->addr[1], answers[i]->addr[2], answers[i]->addr[3],
                answers[i]->ttl);
